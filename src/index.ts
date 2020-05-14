@@ -15,7 +15,13 @@ app.get("/:domain", async (req, res) => {
 	res.statusCode = 200
 	domainPing(req.params.domain).then(async (data) => {
 	  console.log(data)
-		
+
+		res.statusCode = 200
+		res.json({
+			ip: data.ip,
+			isAzure: false
+		})
+
 		await whois.lookup(data.ip, (errW, dataW) => {
 			  console.log(errW)
 			  console.log(dataW)
