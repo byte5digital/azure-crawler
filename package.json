@@ -7,7 +7,7 @@
     "start": "node --inspect=5858 -r ts-node/register ./src/index.ts",
     "web": "node ./dist/index.js",
     "watch": "nodemon",
-    "run:prod": "rimraf ./dist && tsc && pm2 start dist/index.js"
+    "run:prod": "rimraf ./dist && tsc && pm2 start dist/index.js --watch --name crawler"
   },
   "devDependencies": {
     "@types/express": "^4.17.6",
