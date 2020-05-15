@@ -19,7 +19,6 @@ app.get("/:domain", async (req, res) => {
     if (data && data.length > 0) {
       await whois.lookup(data[0], (errW, dataW) => {
         console.log(dataW)
-        res.statusCode = 200
         res.json({
           ip: data[0],
           isAzure: dataW.includes("msndcc@microsoft.com"),
