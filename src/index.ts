@@ -1,4 +1,5 @@
 import * as express from "express"
+import { readSync } from "fs"
 
 export const app = express()
 
@@ -12,23 +13,23 @@ app.get("/", async (req, res) => {
 
 app.get("/:domain", async (req, res) => {
   console.log("new Request")
-  
-  nslookup(req.params.domain)
-    .end(async (err, data) => {
-      console.log(data[0])
-		await whois.lookup(data[0], (errW, dataW) => {
-		  console.log(dataW)
-        res.statusCode = 200
-        res.json({
-          ip: data[0],
-          isAzure: dataW.includes("msndcc@microsoft.com"),
-        })
+
+  nslookup(req.params.domain).end(async (err, data) => {
+    console.log(data[0])
+    await whois.lookup(data[0], (errW, dataW) => {
+      console.log(dataW)
+      res.statusCode = 200
+      res.json({
+        ip: data[0],
+        isAzure: dataW.includes("msndcc@microsoft.com"),
       })
-    })
-    .catch((error) => {
-      res.statusCode = 500
       res.send()
     })
+    if (err) {
+      res.statusCode = 500
+      res.send()
+    }
+  })
 })
 
 const PORT = 3001
