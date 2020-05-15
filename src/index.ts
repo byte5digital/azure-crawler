@@ -16,19 +16,23 @@ app.get("/:domain", async (req, res) => {
 
   nslookup(req.params.domain).end(async (err, data) => {
     console.log(data[0])
-    await whois.lookup(data[0], (errW, dataW) => {
-      console.log(dataW)
-      res.statusCode = 200
-      res.json({
-        ip: data[0],
-        isAzure: dataW.includes("msndcc@microsoft.com"),
+    if (data && data.length > 0) {
+      await whois.lookup(data[0], (errW, dataW) => {
+        console.log(dataW)
+        res.statusCode = 200
+        res.json({
+          ip: data[0],
+          isAzure: dataW.includes("msndcc@microsoft.com"),
+        })
+        res.send()
       })
-      res.send()
-    })
-    if (err) {
-      res.statusCode = 500
-      res.send()
+      if (err) {
+        res.statusCode = 500
+        res.send()
+      }
     }
+    res.statusCode = 500
+    res.send()
   })
 })
 
