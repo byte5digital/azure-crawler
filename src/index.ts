@@ -17,11 +17,18 @@ app.get("/:domain", async (req, res) => {
     if (data && data.length > 0) {
       console.log(data[0])
       let whoisResult = await whois(data[0])
-      return res.json({
-        ip: data[0],
-        isAzure: whoisResult.orgName.includes("Microsoft"),
-        registrar: whoisResult.orgName,
-      })
+      if (whoisResult) {
+        return res.json({
+          ip: data[0],
+          isAzure: whoisResult.orgName
+            ? whoisResult.orgName.includes("Microsoft")
+            : "",
+          registrar: whoisResult.orgName,
+        })
+      } else {
+        console.log("not found")
+        return res.status(404).send()
+      }
     } else {
       console.log("not found")
       return res.status(404).send()
