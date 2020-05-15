@@ -24,7 +24,6 @@ app.get("/:domain", async (req, res) => {
           ip: data[0],
           isAzure: dataW.includes("msndcc@microsoft.com"),
         })
-        res.send()
       })
       if (err) {
         res.statusCode = 500
