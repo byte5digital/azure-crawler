@@ -24,7 +24,7 @@ app.get("/:domain", async (req, res) => {
           isAzure: whoisResult.orgName
             ? whoisResult.orgName.includes("Microsoft")
             : "",
-          registrar: whoisResult.orgName ? whoisResult.orgName : whoisResult.person,
+          registrar: whoisResult.orgName ? whoisResult.orgName : (whoisResult.person ? whoisResult.person : whoisResult.role),
         })
       } else {
         console.log("not found")
