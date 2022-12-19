@@ -33,7 +33,7 @@
     "nslookup": "^1.1.1",
     "pm2": "^4.4.0",
     "tcp-ping": "^0.1.1",
-    "whois": "^2.12.1",
+    "whois": "^2.13.6",
     "whois-json": "^2.0.4"
   },
   "browserslist": [
